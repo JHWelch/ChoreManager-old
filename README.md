@@ -1,4 +1,4 @@
-#ChoreManager
+# ChoreManager
 
 ## Summary
 A Web App for managing recurring tasks or chores. Helps generate a schedule to space out and not forget to regularly do your chores.
