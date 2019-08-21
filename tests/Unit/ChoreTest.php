@@ -1,0 +1,44 @@
+<?php
+
+namespace Tests\Unit;
+
+use App\Chore;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
+
+class ChoreTests extends TestCase {
+	use RefreshDatabase;
+
+	/** @test */
+	public function a_user_can_create_a_test() {
+		$this->actingAs(factory('App\User')->create());
+
+		$this->post('/chores', [
+			'title' => 'Test Chore',
+			'description' => 'This is a whole thing',
+			'frequency_id' => 1,
+		]);
+
+		$this->assertDatabaseHas('chores', ['title' => 'Test Chore']);
+	}
+
+	/** @test */
+	public function user_can_have_chores() {
+		$this->actingAs(factory('App\User')->create());
+
+		$this->post('/chores', [
+			'title' => 'Test Chore',
+			'description' => 'This is a whole thing',
+			'frequency_id' => 1,
+		]);
+
+		// dd(auth()->user()->chores);
+
+		$this->assertFalse(auth()->user()->chores->isEmpty());
+	}
+
+	/** @test */
+	public function chore_can_have_user() {
+		$this->assertFalse(Chore::first() === null);
+	}
+}

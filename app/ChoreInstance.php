@@ -8,6 +8,10 @@ class ChoreInstance extends Model
 {
     public function owner()
     {
-    	return $this->hasOneThrough('App\User', 'App\Chore');
+    	return $this->hasOneThrough('App\User', 'App\Chore', 'chore_id', 'owner_id');
+    }
+
+    public function chore(){
+    	return $this->hasOne('App\Chore');
     }
 }
