@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateChoreInstanceTable extends Migration
+class CreateChoreInstancesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreateChoreInstanceTable extends Migration
     public function up()
     {
         Schema::create(
-            'chore_instance', function (Blueprint $table) {
+            'chore_instances', function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->unsignedBigInteger('chore_id');
                 $table->date('due_date');
