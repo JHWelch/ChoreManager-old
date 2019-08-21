@@ -10,30 +10,45 @@ class ChoreTests extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    /**
+     * Can a user create a test?
+     *
+     * @test
+     * @return void
+     */
     public function a_user_can_create_a_test()
     {
         $this->actingAs(factory('App\User')->create());
 
-        $this->post('/chores', [
-            'title' => 'Test Chore',
-            'description' => 'This is a whole thing',
-            'frequency_id' => 1,
-        ]);
+        $this->post(
+            '/chores',
+            [
+                'title' => 'Test Chore',
+                'description' => 'This is a whole thing',
+                'frequency_id' => 1,
+            ]
+        );
 
         $this->assertDatabaseHas('chores', ['title' => 'Test Chore']);
     }
 
-    /** @test */
+    /**
+     * Test relationship between user and chores
+     *
+     * @test
+     * @return void
+     */
     public function user_can_have_chores()
     {
         $this->actingAs(factory('App\User')->create());
 
-        $this->post('/chores', [
-            'title' => 'Test Chore',
-            'description' => 'This is a whole thing',
-            'frequency_id' => 1,
-        ]
+        $this->post(
+            '/chores',
+            [
+                'title' => 'Test Chore',
+                'description' => 'This is a whole thing',
+                'frequency_id' => 1,
+            ]
         );
 
         // dd(auth()->user()->chores);

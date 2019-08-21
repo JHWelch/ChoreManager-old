@@ -8,14 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class ChoreInstance extends Model
 {
+    protected $guarded = [];
+
     public function owner()
     {
         return $this->hasOneThrough('App\User', 'App\Chore', 'chore_id', 'owner_id');
     }
     /**
-        Relationship to Chore
+    Relationship to Chore
 
-        @return eloquent relationship
+    @return eloquent relationship
      */
     public function chore()
     {
@@ -24,20 +26,21 @@ class ChoreInstance extends Model
 
     public function complete()
     {
-        if ($this->completed_date != null)
-        {
+        if ($this->completed_date != null) {
             $this->update(
-                'completed_date' => Carbon::now();
+                [
+                    'completed_date' => Carbon::now(),
+                ]
             );
         }
 
-        $this->createNextInstance();
+        $this->chore->createNextInstance();
     }
-    
-    protected function createNextInstance()
-    {
-        Chore::create(
-      
-        );
-    }
+
+    // protected function createNextInstance()
+    // {
+    //     Chore::create(
+
+    //     );
+    // }
 }

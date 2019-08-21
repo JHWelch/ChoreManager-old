@@ -70,10 +70,12 @@ class ChoresController extends Controller
 
     protected function validateChore()
     {
-        return request()->validate([
-            'title' => ['required', 'min:3'],
-            'description' => ['required', 'min:3'],
-            'frequency_id' => ['required']
-        ]);
+        return request()->validate(
+            [
+                'title' => ['required', 'min:3'],
+                'description' => ['required', 'min:3'],
+                'frequency_id' => ['required'],
+            ]
+        );
     }
 }

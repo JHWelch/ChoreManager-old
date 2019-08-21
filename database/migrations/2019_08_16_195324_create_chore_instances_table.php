@@ -18,7 +18,7 @@ class CreateChoreInstancesTable extends Migration
                 $table->bigIncrements('id');
                 $table->unsignedBigInteger('chore_id');
                 $table->date('due_date');
-                $table->date('completed_date');
+                $table->date('completed_date')->nullable();
                 $table->foreign('chore_id')->references('id')->on('chores')->onDelete('cascade');
                 $table->timestamps();
             }
