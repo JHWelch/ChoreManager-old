@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateChoreInstanceTable extends Migration
 {
@@ -13,14 +13,16 @@ class CreateChoreInstanceTable extends Migration
      */
     public function up()
     {
-        Schema::create('chore_instance', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('chore_id');
-            $table->date('due_date');
-            $table->date('completed_date');
-            $table->foreign('chore_id')->references('id')->on('chores')->onDelete('cascade');
-            $table->timestamps();
-        });
+        Schema::create(
+            'chore_instance', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->unsignedBigInteger('chore_id');
+                $table->date('due_date');
+                $table->date('completed_date');
+                $table->foreign('chore_id')->references('id')->on('chores')->onDelete('cascade');
+                $table->timestamps();
+            }
+        );
     }
 
     /**

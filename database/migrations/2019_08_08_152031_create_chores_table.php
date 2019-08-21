@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateChoresTable extends Migration
 {
@@ -13,15 +13,17 @@ class CreateChoresTable extends Migration
      */
     public function up()
     {
-        Schema::create('chores', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('owner_id');
-            $table->text('description');
-            $table->string('title');
-            $table->unsignedTinyInteger('frequency_id');
-            $table->timestamps();
-            $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
-        });
+        Schema::create(
+            'chores', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->unsignedBigInteger('owner_id');
+                $table->text('description');
+                $table->string('title');
+                $table->unsignedTinyInteger('frequency_id');
+                $table->timestamps();
+                $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
+            }
+        );
     }
 
     /**
