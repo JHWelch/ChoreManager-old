@@ -3,7 +3,7 @@
 @component('components.maincontainer')
     @component('components.card')
         @slot('header')
-            Chores {{-- {{ $digest_name }} --}}
+            Chores {{ $digest_name }}
         @endslot
 
         <ul>

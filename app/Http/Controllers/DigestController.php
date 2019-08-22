@@ -14,7 +14,14 @@ class DigestController extends Controller
             ->where('chore_instances.due_date', '=', Carbon::now()->toDateString())
             ->get();
 
-        return view('digests.day', compact('chores'));
+        return view(
+            'digests.digest',
+            [
+                'chores' => $chores,
+                'digest_name' => 'Today',
+
+            ]
+        );
     }
 
     public function month()
@@ -33,7 +40,14 @@ class DigestController extends Controller
             ->orderBy('chore_instances.due_date')
             ->get();
 
-        return view('digests.day', compact('chores'));
+        return view(
+            'digests.digest',
+            [
+                'chores' => $chores,
+                'digest_name' => 'This Month',
+
+            ]
+        );
     }
 
     public function week()
@@ -52,6 +66,13 @@ class DigestController extends Controller
             ->orderBy('chore_instances.due_date')
             ->get();
 
-        return view('digests.day', compact('chores'));
+        return view(
+            'digests.digest',
+            [
+                'chores' => $chores,
+                'digest_name' => 'This Week',
+
+            ]
+        );
     }
 }
