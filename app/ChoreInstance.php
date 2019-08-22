@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class ChoreInstance extends Model
 {
+    /**
+     * No gaurded fields
+     *
+     * @var array
+     */
     protected $guarded = [];
 
-    public function owner()
-    {
-        return $this->hasOneThrough('App\User', 'App\Chore', 'chore_id', 'owner_id');
-    }
     /**
     Relationship to Chore
 
@@ -21,9 +22,12 @@ class ChoreInstance extends Model
      */
     public function chore()
     {
-        return $this->hasOne('App\Chore');
+        return $this->belongsTo('App\Chore');
     }
 
+    /**
+     * @return Next Chore Instance
+     */
     public function complete()
     {
         if ($this->completed_date != null) {
@@ -34,13 +38,7 @@ class ChoreInstance extends Model
             );
         }
 
-        $this->chore->createNextInstance();
+        return $this->chore->createNextInstance();
     }
 
-    // protected function createNextInstance()
-    // {
-    //     Chore::create(
-
-    //     );
-    // }
 }

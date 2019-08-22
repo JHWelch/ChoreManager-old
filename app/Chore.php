@@ -48,19 +48,14 @@ class Chore extends Model
         return $this->hasMany('App\ChoreInstance');
     }
 
-    public function getIntervalDaysAttribute()
-    {
-
-    }
-
     public function createInstanceNow()
     {
-        $this->createInstanceAt(Carbon::now());
+        return $this->createInstanceAt(Carbon::now());
     }
 
     public function createInstanceAt($date)
     {
-        ChoreInstance::create(
+        return ChoreInstance::create(
             [
                 'due_date' => $date->toDateString(),
                 'chore_id' => $this->id,
@@ -71,6 +66,22 @@ class Chore extends Model
 
     public function createNextInstance()
     {
-
+        switch ($this->frequency_id) {
+            case 0: // Daily
+                return $this->createInstanceAt(Carbon::now()->addDay());
+                break;
+            case 1: // Weekly
+                return $this->createInstanceAt(Carbon::now()->addWeek());
+                break;
+            case 2:
+                return $this->createInstanceAt(Carbon::now()->addMonth());
+                break;
+            case 3: // Quarterly
+                return $this->createInstanceAt(Carbon::now()->addMonths(3));
+                break;
+            case 4: //Year
+                return $this->createInstanceAt(Carbon::now()->addYear());
+                break;
+        }
     }
 }

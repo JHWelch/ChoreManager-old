@@ -2,9 +2,8 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -40,5 +39,10 @@ class User extends Authenticatable
     public function chores()
     {
         return $this->hasMany(Chore::class, 'owner_id');
+    }
+
+    public function choreInstances()
+    {
+        return $this->hasManyThrough('App\ChoreInstance', 'App\Chore', 'owner_id');
     }
 }
