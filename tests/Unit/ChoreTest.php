@@ -59,6 +59,22 @@ class ChoreTests extends TestCase
     /** @test */
     public function chore_can_have_user()
     {
-        $this->assertFalse(Chore::first() === null);
+        $this->assertFalse($this->getChore()->owner === null);
+    }
+
+    private function getChore()
+    {
+        $this->actingAs(factory('App\User')->create());
+
+        $this->post(
+            '/chores',
+            [
+                'title' => 'Test Chore',
+                'description' => 'This is a whole thing',
+                'frequency_id' => 1,
+            ]
+        );
+
+        return auth()->user()->chores->last();
     }
 }

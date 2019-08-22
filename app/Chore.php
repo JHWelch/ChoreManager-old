@@ -62,7 +62,7 @@ class Chore extends Model
     {
         ChoreInstance::create(
             [
-                'due_date' => $date,
+                'due_date' => $date->toDateString(),
                 'chore_id' => $this->id,
                 'completed_date' => null,
             ]
