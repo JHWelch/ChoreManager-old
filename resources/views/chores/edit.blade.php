@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['active' => 'chores'])
 
 @section('content')
 <div class="container">

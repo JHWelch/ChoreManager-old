@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['active' => 'chores'])
 
 @section('content')
 <div class="container">
@@ -9,7 +9,7 @@
                 <div class="card-header">Create a new Chore</div>
 
                 <div class="card-body">
-                    
+
                     <form method="POST" action="/chores">
                         <div class="col-lg-8">
                             @csrf

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['active' => 'chores'])
 
 @section('content')
 <div class="container">
@@ -20,7 +20,7 @@
                         @method('DELETE')
                         @csrf
                         <button class="btn btn-danger" type="submit">Delete Chore</button>
-                    </form>  
+                    </form>
                 </div>
             </div>
         </div>

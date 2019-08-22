@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['active' => 'digest'])
 @section('content')
 @component('components.maincontainer')
     @component('components.card')
