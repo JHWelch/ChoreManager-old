@@ -29,6 +29,10 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="form-group">
+                                <label for="due_date">First Due Date</label>
+                                <input class="form-control" type="text" name="due_date" value={{ Carbon\Carbon::now() }}>
+                            </div>
                         </div>
                         <button class="btn btn-primary" type="submit">Save Chore</button>
                     </form>

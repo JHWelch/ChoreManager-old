@@ -11,7 +11,12 @@ class DigestController extends Controller
     {
         $chores = DB::table('chores')
             ->join('chore_instances', 'chores.id', '=', 'chore_instances.chore_id')
-            ->where('chore_instances.due_date', '=', Carbon::now()->toDateString())
+            ->where(
+                [
+                    ['chore_instances.due_date', '=', Carbon::now()->toDateString()],
+                    ['owner_id', '=', auth()->id()],
+                ]
+            )
             ->get();
 
         return view(
@@ -35,6 +40,7 @@ class DigestController extends Controller
                 [
                     ['chore_instances.due_date', '>=', $startOfMonth],
                     ['chore_instances.due_date', '<=', $endOfMonth],
+                    ['owner_id', '=', auth()->id()],
                 ]
             )
             ->orderBy('chore_instances.due_date')
@@ -61,6 +67,7 @@ class DigestController extends Controller
                 [
                     ['chore_instances.due_date', '>=', $startOfWeek],
                     ['chore_instances.due_date', '<=', $endOfWeek],
+                    ['owner_id', '=', auth()->id()],
                 ]
             )
             ->orderBy('chore_instances.due_date')
