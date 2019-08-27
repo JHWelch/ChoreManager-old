@@ -16,11 +16,12 @@ class Chore extends Model
     protected $guarded = [];
 
     const FREQUENCIES = [
-        0 => 'Daily',
-        1 => 'Weekly',
-        2 => 'Monthly',
-        3 => 'Quarterly',
-        4 => 'Yearly',
+        0 => 'Does not Repeat',
+        1 => 'Daily',
+        2 => 'Weekly',
+        3 => 'Monthly',
+        4 => 'Quarterly',
+        5 => 'Yearly',
     ];
 
     public function getFrequencyNameAttribute()
@@ -55,33 +56,54 @@ class Chore extends Model
 
     public function createInstanceAt($date)
     {
-        return ChoreInstance::create(
-            [
-                'due_date' => $date->toDateString(),
-                'chore_id' => $this->id,
-                'completed_date' => null,
-            ]
-        );
+        $currentInstance = $this->currentInstance();
+
+        if ($currentInstance != null) {
+            $currentInstance->due_date = $date->toDateString();
+
+            $currentInstance->save();
+            return $currentInstance;
+        } else {
+            return ChoreInstance::create(
+                [
+                    'due_date' => $date->toDateString(),
+                    'chore_id' => $this->id,
+                    'completed_date' => null,
+                ]
+            );
+        }
     }
 
     public function createNextInstance()
     {
         switch ($this->frequency_id) {
-            case 0: // Daily
+            case 0:
+                return null;
+            case 1: // Daily
                 return $this->createInstanceAt(Carbon::now()->addDay());
                 break;
-            case 1: // Weekly
+            case 2: // Weekly
                 return $this->createInstanceAt(Carbon::now()->addWeek());
                 break;
-            case 2:
+            case 3:
                 return $this->createInstanceAt(Carbon::now()->addMonth());
                 break;
-            case 3: // Quarterly
+            case 4: // Quarterly
                 return $this->createInstanceAt(Carbon::now()->addMonths(3));
                 break;
-            case 4: //Year
+            case 5: //Year
                 return $this->createInstanceAt(Carbon::now()->addYear());
                 break;
         }
+    }
+
+    public function currentInstance()
+    {
+        return ChoreInstance::where(
+            [
+                'chore_id' => $this->id,
+                'completed_date' => null,
+            ]
+        )->get()->first();
     }
 }
