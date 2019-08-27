@@ -30,15 +30,14 @@ class ChoreInstance extends Model
      */
     public function complete()
     {
-        if ($this->completed_date != null) {
-            $this->update(
-                [
-                    'completed_date' => Carbon::now(),
-                ]
-            );
+        if ($this->completed_date === null) {
+            $this->completed_date = Carbon::now()->toDateString();
+            $this->save();
+
+            return $this->chore->createNextInstance();
         }
 
-        return $this->chore->createNextInstance();
+        return null;
     }
 
 }
