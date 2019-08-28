@@ -7,18 +7,6 @@ use Illuminate\Http\Request;
 
 class ChoreInstanceController extends Controller
 {
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
     /**
      * Display the specified resource.
      *
@@ -45,11 +33,20 @@ class ChoreInstanceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\ChoreInstance  $choreInstance
-     * @return \Illuminate\Http\Response
+     * @param \App\ChoreInstance $choreInstance Chore being destroyed
+     *
+     * @return Nothing
      */
     public function destroy(ChoreInstance $choreInstance)
     {
         //
+    }
+
+    public function complete(ChoreInstance $choreInstance)
+    {
+        $this->authorize('update', $choreInstance);
+
+        $choreInstance->complete();
+
     }
 }
