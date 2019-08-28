@@ -58,6 +58,10 @@ class Chore extends Model
     {
         $currentInstance = $this->currentInstance();
 
+        if (gettype($date) === 'string') {
+            $date = new Carbon($date);
+        }
+
         if ($currentInstance != null) {
             $currentInstance->due_date = $date->toDateString();
 

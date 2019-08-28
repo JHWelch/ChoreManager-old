@@ -27,7 +27,11 @@ class ChoresController extends Controller
         $attributes = $this->validateChore();
         $attributes['owner_id'] = auth()->id();
 
-        Chore::create($attributes);
+        $dueDate = request()->validate(['due_date' => ['required']]);
+
+        $newChore = Chore::create($attributes);
+
+        $newChore->createInstanceAt($dueDate['due_date']);
 
         return redirect('/chores');
     }
@@ -75,6 +79,7 @@ class ChoresController extends Controller
                 'title' => ['required', 'min:3'],
                 'description' => ['required', 'min:3'],
                 'frequency_id' => ['required'],
+
             ]
         );
     }
