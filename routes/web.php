@@ -1,5 +1,7 @@
 <?php
 
+use App\User;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,8 +14,7 @@
  */
 
 Route::get(
-    '/',
-    function () {
+    '/', function () {
         return view('welcome');
     }
 );
@@ -29,3 +30,9 @@ Route::get('/digest/week', 'DigestController@week')->middleware('auth');
 Route::get('/digest/month', 'DigestController@month')->middleware('auth');
 
 Route::post('/chore_instance/{chore_instance}/complete', 'ChoreInstanceController@complete')->middleware('auth');
+
+Route::get(
+    '/settings', function () {
+        return view('settings', ['notification_settings' => User::DEFAULT_NOTIFICATION_SETTINGS]);
+    }
+);
