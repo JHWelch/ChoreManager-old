@@ -19,6 +19,6 @@ class ChoreInstancePolicy
      */
     public function update(User $user, ChoreInstance $choreInstance)
     {
-        $choreInstance->chore->owner_id = $user->id;
+        return $choreInstance->chore->owner_id = $user->id;
     }
 }

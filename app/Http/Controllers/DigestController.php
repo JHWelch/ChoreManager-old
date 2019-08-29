@@ -7,17 +7,27 @@ use Illuminate\Support\Facades\DB;
 
 class DigestController extends Controller
 {
-    public function day()
+    protected function getChoresBetween($startDate, $endDate)
     {
-        $chores = DB::table('chores')
+        return DB::table('chores')
             ->join('chore_instances', 'chores.id', '=', 'chore_instances.chore_id')
             ->where(
                 [
-                    ['chore_instances.due_date', '=', Carbon::now()->toDateString()],
+                    ['chore_instances.due_date', '>=', $startDate],
+                    ['chore_instances.due_date', '<=', $endDate],
                     ['owner_id', '=', auth()->id()],
                 ]
             )
+            ->whereNull('completed_date')
+            ->orderBy('chore_instances.due_date')
             ->get();
+    }
+
+    public function day()
+    {
+        $now = Carbon::now()->toDateString();
+
+        $chores = $this->getChoresBetween($now, $now);
 
         return view(
             'digests.digest',
@@ -34,17 +44,7 @@ class DigestController extends Controller
         $startOfMonth = new Carbon('first day of this month');
         $endOfMonth = new Carbon('last day of this month');
 
-        $chores = DB::table('chores')
-            ->join('chore_instances', 'chores.id', '=', 'chore_instances.chore_id')
-            ->where(
-                [
-                    ['chore_instances.due_date', '>=', $startOfMonth],
-                    ['chore_instances.due_date', '<=', $endOfMonth],
-                    ['owner_id', '=', auth()->id()],
-                ]
-            )
-            ->orderBy('chore_instances.due_date')
-            ->get();
+        $chores = $this->getChoresBetween($startOfMonth, $endOfMonth);
 
         return view(
             'digests.digest',
@@ -61,24 +61,13 @@ class DigestController extends Controller
         $startOfWeek = new Carbon('this week');
         $endOfWeek = new Carbon('this week +6 days');
 
-        $chores = DB::table('chores')
-            ->join('chore_instances', 'chores.id', '=', 'chore_instances.chore_id')
-            ->where(
-                [
-                    ['chore_instances.due_date', '>=', $startOfWeek],
-                    ['chore_instances.due_date', '<=', $endOfWeek],
-                    ['owner_id', '=', auth()->id()],
-                ]
-            )
-            ->orderBy('chore_instances.due_date')
-            ->get();
+        $chores = $this->getChoresBetween($startOfWeek, $endOfWeek);
 
         return view(
             'digests.digest',
             [
                 'chores' => $chores,
                 'digest_name' => 'This Week',
-
             ]
         );
     }

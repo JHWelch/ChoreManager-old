@@ -6,11 +6,15 @@
             Chores {{ $digest_name }}
         @endslot
 
-        <ul>
-            @foreach ($chores as $chore)
-            <li><a href="/chores/{{ $chore->chore_id }}"> {{ $chore->title }} - {{ $chore->due_date }}</a></li>
-            @endforeach
-        </ul>
+
+        @foreach ($chores as $chore)
+        <form method="POST" action="/chore_instance/{{ $chore->id }}/complete">
+            @csrf
+            <a href="/chores/{{ $chore->chore_id }}"> {{ $chore->title }} - {{ $chore->due_date }}</a>
+            <button class="btn btn-primary" type="submit">Complete</button>
+        </form>
+        @endforeach
+
 
     @endcomponent
 @endcomponent

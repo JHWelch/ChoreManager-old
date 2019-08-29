@@ -27,3 +27,5 @@ Route::resource('chores', 'ChoresController')->middleware('auth');
 Route::get('/digest/day', 'DigestController@day')->middleware('auth');
 Route::get('/digest/week', 'DigestController@week')->middleware('auth');
 Route::get('/digest/month', 'DigestController@month')->middleware('auth');
+
+Route::post('/chore_instance/{chore_instance}/complete', 'ChoreInstanceController@complete')->middleware('auth');

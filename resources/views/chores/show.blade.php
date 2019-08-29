@@ -16,7 +16,7 @@
                     </ul>
 
                     <a class="btn btn-primary" href="\chores\{{ $chore->id }}\edit" title="Edit Chore">Edit</a>
-                    <form method="POST" action="\chores\{{ $chore->id }}">
+                    <form method="POST" action="\chores\{{ $chore->id }}" class="mt-2">
                         @method('DELETE')
                         @csrf
                         <button class="btn btn-danger" type="submit">Delete Chore</button>

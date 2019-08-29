@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ChoreInstance;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class ChoreInstanceController extends Controller
 {
@@ -48,5 +49,6 @@ class ChoreInstanceController extends Controller
 
         $choreInstance->complete();
 
+        return Redirect::back();
     }
 }
