@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
-A user's chore.
+ * A user's chore.
  */
 class Chore extends Model
 {
@@ -40,9 +40,9 @@ class Chore extends Model
     }
 
     /**
-    Get All ChoreInstances of this Chore
-
-    @return App\ChoreInstance Collection
+    * Get All ChoreInstances of this Chore
+    *
+    * @return App\ChoreInstance Collection
      */
     public function instances()
     {
