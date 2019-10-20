@@ -52,3 +52,7 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+window.Vue = require('vue');
+import VueRouter from 'vue-router';
+
+Vue.use(VueRouter);

@@ -1,0 +1,7 @@
+@tailwind base;
+
+@tailwind components;
+
+/* Add Custom @apply here */
+
+@tailwind utilities;
