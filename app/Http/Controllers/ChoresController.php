@@ -11,8 +11,9 @@ class ChoresController extends Controller
     public function index()
     {
         $chores = auth()->user()->chores;
-
-        return view('chores.index', compact('chores'));
+        
+        return $chores;
+        // return view('chores.index', compact('chores'));
     }
 
     public function create()

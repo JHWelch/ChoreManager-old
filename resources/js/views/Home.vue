@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <MainLayout>
       <h1>Welcome to ChoreManager</h1>
-  </div>
+  </MainLayout>
 </template>
 
 <script>
@@ -9,7 +9,3 @@ export default {
 
 }
 </script>
-
-<style>
-
-</style>
