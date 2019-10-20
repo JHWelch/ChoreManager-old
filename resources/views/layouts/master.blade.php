@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-    <div id="app">
-        {{-- @include('layouts.header') --}}
+    <div class="bg-gray-200 h-screen" id="app">
+        @include('layouts.header')
         
         <router-view></router-view>
     </div>
